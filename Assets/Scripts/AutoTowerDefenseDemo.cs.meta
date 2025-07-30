@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 8f03208a2ca000f4ca6187b3914566a1
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - baseSprite: {instanceID: 0}
+  - towerSprite: {instanceID: 0}
+  - enemySprite: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
