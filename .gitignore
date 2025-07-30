@@ -1,1 +1,89 @@
- 
+# Unity生成的文件夹
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+
+# MemoryCaptures可以获取性能分析数据
+[Mm]emoryCaptures/
+
+# Asset meta data应该只在它们被忽略的文件被忽略时被忽略
+!/[Aa]ssets/**/*.meta
+
+# 自动生成的VS/MD/Consulo解决方案和项目文件
+ExportedObj/
+.consulo/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# Unity3D生成的元文件
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+
+# Unity3D生成的崩溃报告文件
+sysinfo.txt
+
+# 构建
+*.apk
+*.aab
+*.unitypackage
+*.app
+
+# Crashlytics生成的文件
+crashlytics-build.properties
+
+# 包管理器
+Packages/
+Packages/manifest.json
+Packages/packages-lock.json
+
+# 插件
+Assets/Plugins/Editor/JetBrains*
+
+# 本地历史记录
+.vs/
+
+# Gradle缓存目录
+.gradle/
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# IDE文件
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 日志文件
+*.log
+
+# 临时文件
+*.tmp
+*.temp
+
+# Plastic SCM相关文件
+.plastic/
+plastic.gui.config
+plastic.gui.config.lock 
