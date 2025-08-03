@@ -10,6 +10,22 @@ public class SimpleAnimation : MonoBehaviour
     private float frameTimer = 0f;
     private int currentFrame = 0;
     
+    // 新增：获取游戏速度的方法
+    private float GetGameSpeed()
+    {
+        AutoTowerDefenseDemo gameManager = FindFirstObjectByType<AutoTowerDefenseDemo>();
+        if (gameManager != null)
+        {
+            var gameSpeedField = typeof(AutoTowerDefenseDemo).GetField("gameSpeed", 
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            if (gameSpeedField != null)
+            {
+                return (float)gameSpeedField.GetValue(gameManager);
+            }
+        }
+        return 1f; // 默认1倍速
+    }
+    
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -23,7 +39,11 @@ public class SimpleAnimation : MonoBehaviour
     {
         if (animationFrames.Length <= 1) return;
         
-        frameTimer += Time.deltaTime;
+        // 获取当前游戏速度
+        float currentGameSpeed = GetGameSpeed();
+        
+        // 根据游戏速度调整动画速度
+        frameTimer += Time.deltaTime * currentGameSpeed;
         float frameInterval = 1f / frameRate;
         
         if (frameTimer >= frameInterval)

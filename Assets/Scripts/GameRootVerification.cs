@@ -41,7 +41,7 @@ public class GameRootVerification : MonoBehaviour
             Debug.Log("❌ GameRoot not found in scene!");
             
             // 列出所有根对象
-            var allObjects = FindObjectsOfType<GameObject>();
+            var allObjects = FindObjectsByType<GameObject>(FindObjectsSortMode.None);
             Debug.Log($"Found {allObjects.Length} GameObjects in scene:");
             foreach (var obj in allObjects)
             {

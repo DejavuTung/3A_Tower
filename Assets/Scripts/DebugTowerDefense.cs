@@ -238,7 +238,8 @@ public class DebugTowerDefense : MonoBehaviour
         rect.sizeDelta = new Vector2(300, 50);
         var t = go.AddComponent<Text>();
         t.text = text;
-        t.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        // 使用默认字体，避免DontSaveInEditor冲突
+        t.font = null; // Unity会自动使用默认字体
         t.fontSize = 24;
         t.color = color;
         t.alignment = TextAnchor.MiddleCenter;
