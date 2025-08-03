@@ -1570,18 +1570,22 @@ public class AutoTowerDefenseDemo : MonoBehaviour
                 // 设置位置到世界坐标原点
                 backgroundObj.transform.position = Vector3.zero;
                 
-                // 调整背景大小以适应屏幕
+                // 获取屏幕尺寸
                 float screenHeight = Camera.main.orthographicSize * 2f;
                 float screenWidth = screenHeight * Camera.main.aspect;
                 
-                // 计算背景的缩放比例
-                float scaleX = screenWidth / backgroundMap.bounds.size.x;
-                float scaleY = screenHeight / backgroundMap.bounds.size.y;
-                float scale = Mathf.Max(scaleX, scaleY); // 使用较大的缩放比例确保覆盖整个屏幕
+                // 获取地图原始尺寸
+                float mapWidth = backgroundMap.bounds.size.x;
+                float mapHeight = backgroundMap.bounds.size.y;
                 
-                backgroundObj.transform.localScale = new Vector3(scale, scale, 1f);
+                // 计算拉伸比例以完全铺满屏幕
+                float scaleX = screenWidth / mapWidth;
+                float scaleY = screenHeight / mapHeight;
                 
-                Debug.Log($"背景地图已创建 - 屏幕尺寸: {screenWidth}x{screenHeight}, 背景缩放: {scale}");
+                // 直接应用拉伸缩放，确保地图完全覆盖屏幕
+                backgroundObj.transform.localScale = new Vector3(scaleX, scaleY, 1f);
+                
+                Debug.Log($"背景地图已拉伸铺满屏幕 - 屏幕尺寸: {screenWidth}x{screenHeight}, 地图尺寸: {mapWidth}x{mapHeight}, 缩放比例: X={scaleX:F2}, Y={scaleY:F2}");
             }
             else
             {
