@@ -1578,18 +1578,64 @@ public class AutoTowerDefenseDemo : MonoBehaviour
                 float mapWidth = backgroundMap.bounds.size.x;
                 float mapHeight = backgroundMap.bounds.size.y;
                 
-                // 计算拉伸比例以完全铺满屏幕
+                // 强制拉伸以完全铺满屏幕
                 float scaleX = screenWidth / mapWidth;
                 float scaleY = screenHeight / mapHeight;
                 
-                // 直接应用拉伸缩放，确保地图完全覆盖屏幕
+                // 应用拉伸缩放，确保地图完全覆盖屏幕
                 backgroundObj.transform.localScale = new Vector3(scaleX, scaleY, 1f);
                 
-                Debug.Log($"背景地图已拉伸铺满屏幕 - 屏幕尺寸: {screenWidth}x{screenHeight}, 地图尺寸: {mapWidth}x{mapHeight}, 缩放比例: X={scaleX:F2}, Y={scaleY:F2}");
+                // 添加额外的调试信息
+                Debug.Log($"=== 背景地图创建详情 ===");
+                Debug.Log($"屏幕尺寸: {screenWidth:F2} x {screenHeight:F2}");
+                Debug.Log($"地图原始尺寸: {mapWidth:F2} x {mapHeight:F2}");
+                Debug.Log($"计算出的缩放比例: X={scaleX:F2}, Y={scaleY:F2}");
+                Debug.Log($"应用的缩放: {backgroundObj.transform.localScale}");
+                Debug.Log($"地图比例: {mapWidth/mapHeight:F2}");
+                Debug.Log($"屏幕比例: {screenWidth/screenHeight:F2}");
+                Debug.Log($"=== 背景地图创建完成 ===");
+                
+                // 验证地图是否正确覆盖屏幕
+                StartCoroutine(VerifyBackgroundCoverage(backgroundObj, screenWidth, screenHeight));
             }
             else
             {
                 Debug.LogWarning("背景地图Sprite未设置，跳过背景创建");
+            }
+        }
+        
+        // 验证背景覆盖情况
+        System.Collections.IEnumerator VerifyBackgroundCoverage(GameObject backgroundObj, float screenWidth, float screenHeight)
+        {
+            yield return new WaitForEndOfFrame();
+            
+            // 获取地图的实际渲染尺寸
+            SpriteRenderer sr = backgroundObj.GetComponent<SpriteRenderer>();
+            if (sr != null)
+            {
+                Vector3 actualSize = sr.bounds.size;
+                Debug.Log($"地图实际渲染尺寸: {actualSize.x:F2} x {actualSize.y:F2}");
+                
+                if (actualSize.x >= screenWidth && actualSize.y >= screenHeight)
+                {
+                    Debug.Log("✓ 背景地图成功铺满屏幕");
+                }
+                else
+                {
+                    Debug.LogWarning($"✗ 背景地图未完全覆盖屏幕 - 需要: {screenWidth}x{screenHeight}, 实际: {actualSize.x:F2}x{actualSize.y:F2}");
+                    
+                    // 尝试强制调整
+                    float adjustX = screenWidth / actualSize.x;
+                    float adjustY = screenHeight / actualSize.y;
+                    Vector3 currentScale = backgroundObj.transform.localScale;
+                    backgroundObj.transform.localScale = new Vector3(
+                        currentScale.x * adjustX,
+                        currentScale.y * adjustY,
+                        currentScale.z
+                    );
+                    
+                    Debug.Log($"强制调整后的缩放: {backgroundObj.transform.localScale}");
+                }
             }
         }
        
